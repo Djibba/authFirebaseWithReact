@@ -12,6 +12,29 @@ export default function SignupModal() {
                                 <h5 className="modal-title">Sign Up</h5>
                                 <button className='btn-close'></button>
                             </div>
+
+                            <div className="modal-body">
+                                <form className='sign-up-form'>
+                                    
+                                    <div class="mb-3">
+                                        <label htmlFor="signUpEmail" class="form-label">Email address</label>
+                                        <input type="email" name='email' className="form-control" id="signUpEmail" required/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label htmlFor="signUpPassword" class="form-label">Password</label>
+                                        <input type="password" name='password' className="form-control" id="signUpPassword" required/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label htmlFor="signUpRepeatPassword" class="form-label">Repeat Password</label>
+                                        <input type="password" name='repeatPassword' className="form-control" id="signUpRepeatPassword" required/>
+                                        <p className="text-danger mt-1"></p>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
