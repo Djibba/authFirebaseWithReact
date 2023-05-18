@@ -14,6 +14,8 @@ export const UserProvider = (props) => {
         signin: false
     })
 
+    const signUp = (email, password) =>  createUserWithEmailAndPassword(auth, email, password)
+
     const toggle = (modal) => {
 
         if(modal === 'signup') {
@@ -37,7 +39,7 @@ export const UserProvider = (props) => {
     }
 
     return (
-        <UserContext.Provider value={{ modal, toggle }}>
+        <UserContext.Provider value={{ modal, toggle, signUp }}>
             {props.children}
         </UserContext.Provider>
     )

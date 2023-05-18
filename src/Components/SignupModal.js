@@ -3,7 +3,7 @@ import { UserContext } from '../Context/UserContext'
 
 export default function SignupModal() {
 
-    const {modal, toggle} = useContext(UserContext)
+    const {modal, toggle, signUp} = useContext(UserContext)
     const [validation, setValidation] = useState('')
     const inputs = useRef([])
     const addInputs = (el) => {
@@ -11,6 +11,7 @@ export default function SignupModal() {
             inputs.current.push(el)
         }
     }
+    const formRef = useRef()
 
     const handleForm = (e) => {
         e.preventDefault()
@@ -22,7 +23,26 @@ export default function SignupModal() {
             setValidation('Passwords do not match')
             return
         }
-        
+
+        try {
+            const user = signUp(inputs.current[0].value, inputs.current[1].value)
+            formRef.current.reset()
+            setValidation("")
+            console.log(user)
+        } catch (error) {
+            if(error.code === "auth/email-already-in-use") {
+                setValidation('Email already in use')
+            }
+            if(error.code === "auth/invalid-email") {
+                setValidation('Invalid email')
+            }
+        }
+
+    }
+
+    const closeModel = () => {
+        setValidation("")
+        toggle('close')
     }
 
   return (
@@ -35,11 +55,11 @@ export default function SignupModal() {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title">Sign Up</h5>
-                                    <button className='btn-close' onClick={() => toggle('close')}></button>
+                                    <button className='btn-close' onClick={closeModel}></button>
                                 </div>
 
                                 <div className="modal-body">
-                                    <form onSubmit={handleForm} className='sign-up-form'>
+                                    <form ref={formRef} onSubmit={handleForm} className='sign-up-form'>
                                         
                                         <div className="mb-3">
                                             <label htmlFor="signUpEmail" className="form-label">Email address</label>
