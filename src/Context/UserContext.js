@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import {signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
         onAuthStateChanged
@@ -8,6 +8,17 @@ import { auth } from "../Firebase-config";
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
+
+    const [currentUser, setCurrentUser] = useState()
+    const [loadingData, setLoadingData] = useState(true)
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setCurrentUser(currentUser)
+            setLoadingData(false)
+        })
+        return unsubscribe
+    }, [])
 
     const [modal, setModal] = useState({
         signup: false,
@@ -39,8 +50,8 @@ export const UserProvider = (props) => {
     }
 
     return (
-        <UserContext.Provider value={{ modal, toggle, signUp }}>
-            {props.children}
+        <UserContext.Provider value={{ modal, toggle, signUp, currentUser }}>
+            {!loadingData && props.children}
         </UserContext.Provider>
     )
 }
