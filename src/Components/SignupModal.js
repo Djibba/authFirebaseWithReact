@@ -15,7 +15,7 @@ export default function SignupModal() {
     const formRef = useRef()
     const navigate = useNavigate()
 
-    const handleForm = (e) => {
+    const handleForm = async (e) => {
         e.preventDefault()
 
         if((inputs.current[1].value.length < 6) || (inputs.current[2].value.length < 6)) {
@@ -27,7 +27,7 @@ export default function SignupModal() {
         }
 
         try {
-            const user = signUp(inputs.current[0].value, inputs.current[1].value)
+            const user = await signUp(inputs.current[0].value, inputs.current[1].value)
             formRef.current.reset()
             setValidation("")
             // console.log(user)

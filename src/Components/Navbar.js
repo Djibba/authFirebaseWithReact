@@ -13,7 +13,7 @@ export default function Navbar() {
     try {
       await signOut(auth)
       navigate('/')
-    } catch (error) {
+    } catch {
       alert("Error logging out")
     }
   }

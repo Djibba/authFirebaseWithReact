@@ -27,6 +27,8 @@ export const UserProvider = (props) => {
 
     const signUp = (email, password) =>  createUserWithEmailAndPassword(auth, email, password)
 
+    const signIn = (email, password) =>  signInWithEmailAndPassword(auth, email, password)
+
     const toggle = (modal) => {
 
         if(modal === 'signup') {
@@ -50,7 +52,7 @@ export const UserProvider = (props) => {
     }
 
     return (
-        <UserContext.Provider value={{ modal, toggle, signUp, currentUser }}>
+        <UserContext.Provider value={{ modal, toggle, signUp, currentUser, signIn }}>
             {!loadingData && props.children}
         </UserContext.Provider>
     )
